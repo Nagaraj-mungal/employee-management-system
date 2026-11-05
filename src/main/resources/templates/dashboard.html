@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"><head th:replace="~{fragments/head :: head('Dashboard')}"></head><body>
+<div th:replace="~{fragments/layout :: navbar}"></div><main class="container py-4">
+<div class="d-flex justify-content-between align-items-center mb-4"><div><h2 class="fw-bold mb-1">Dashboard</h2><p class="text-muted mb-0">Overview of your workforce</p></div><a class="btn btn-primary" href="/employees/new">+ Add employee</a></div>
+<div class="row g-3 mb-4">
+<div class="col-md-3"><div class="stat-card"><span>Total employees</span><strong th:text="${totalEmployees}">0</strong></div></div>
+<div class="col-md-3"><div class="stat-card"><span>Active employees</span><strong th:text="${activeEmployees}">0</strong></div></div>
+<div class="col-md-3"><div class="stat-card"><span>Inactive employees</span><strong th:text="${inactiveEmployees}">0</strong></div></div>
+<div class="col-md-3"><div class="stat-card"><span>Departments</span><strong th:text="${departmentCount}">0</strong></div></div></div>
+<div class="card border-0 shadow-sm"><div class="card-header bg-white py-3 d-flex justify-content-between"><strong>Recently added employees</strong><a href="/employees">View all</a></div>
+<div class="table-responsive"><table class="table align-middle mb-0"><thead><tr><th>Name</th><th>Job title</th><th>Department</th><th>Status</th></tr></thead><tbody>
+<tr th:each="e : ${recentEmployees}"><td th:text="${e.fullName}"></td><td th:text="${e.jobTitle}"></td><td th:text="${e.department != null ? e.department.name : '—'}"></td><td><span class="badge text-bg-success" th:if="${e.status == 'ACTIVE'}">Active</span><span class="badge text-bg-secondary" th:unless="${e.status == 'ACTIVE'}">Inactive</span></td></tr>
+<tr th:if="${#lists.isEmpty(recentEmployees)}"><td colspan="4" class="text-center text-muted py-4">No employees yet.</td></tr>
+</tbody></table></div></div></main></body></html>

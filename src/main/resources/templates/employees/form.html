@@ -1,0 +1,12 @@
+<!DOCTYPE html><html lang="en" xmlns:th="http://www.thymeleaf.org"><head th:replace="~{fragments/head :: head(${pageTitle})}"></head><body><div th:replace="~{fragments/layout :: navbar}"></div>
+<main class="container py-4"><div class="mb-4"><a href="/employees" class="text-decoration-none">← Employees</a><h2 class="fw-bold mt-2" th:text="${pageTitle}">Employee</h2></div>
+<form th:action="@{/employees/save}" th:object="${employee}" method="post" class="card border-0 shadow-sm"><input type="hidden" th:field="*{id}"><div class="card-body p-4"><div class="row g-3">
+<div class="col-md-6"><label class="form-label">First name *</label><input class="form-control" th:field="*{firstName}"><div class="text-danger small" th:errors="*{firstName}"></div></div>
+<div class="col-md-6"><label class="form-label">Last name *</label><input class="form-control" th:field="*{lastName}"><div class="text-danger small" th:errors="*{lastName}"></div></div>
+<div class="col-md-6"><label class="form-label">Email *</label><input class="form-control" th:field="*{email}" type="email"><div class="text-danger small" th:errors="*{email}"></div></div>
+<div class="col-md-6"><label class="form-label">Phone *</label><input class="form-control" th:field="*{phone}"><div class="text-danger small" th:errors="*{phone}"></div></div>
+<div class="col-md-6"><label class="form-label">Job title *</label><input class="form-control" th:field="*{jobTitle}"><div class="text-danger small" th:errors="*{jobTitle}"></div></div>
+<div class="col-md-6"><label class="form-label">Department</label><select class="form-select" name="departmentId"><option value="">Select department</option><option th:each="d : ${departments}" th:value="${d.id}" th:text="${d.name}" th:selected="${employee.department != null and employee.department.id == d.id}"></option></select></div>
+<div class="col-md-6"><label class="form-label">Salary *</label><input class="form-control" th:field="*{salary}" type="number" min="0" step="0.01"><div class="text-danger small" th:errors="*{salary}"></div></div>
+<div class="col-md-6"><label class="form-label">Status</label><select class="form-select" th:field="*{status}"><option value="ACTIVE">Active</option><option value="INACTIVE">Inactive</option></select></div>
+</div></div><div class="card-footer bg-white p-3 d-flex gap-2"><button class="btn btn-primary">Save employee</button><a class="btn btn-outline-secondary" href="/employees">Cancel</a></div></form></main></body></html>
